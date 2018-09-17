@@ -1,0 +1,18 @@
+hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator=, -Dimporttsv.columns=HBASE_ROW_KEY,id, Cust_ID,age,MonthlyIncome,NumberOfDependents,Gender,Maritial_Status,City,Education,EmploymentSince,ResidenceSince,ResidenceType,Foreigner demographic /hbase/FL/cs-training_Demographic.csv
+
+
+
+Cust_ID,age,MonthlyIncome,NumberOfDependents,Gender,Maritial_Status,City,Education,EmploymentSince,ResidenceSince,ResidenceType,Fore
+
+
+
+
+bin/hbase org.apache.hadoop.hbase.mapreduce.ImportTsv -Dimporttsv.separator=, -Dimporttsv.columns=HBASE_ROW_KEY,cf emp /user/training/test/emp.txt
+
+
+
+
+CREATE TABLE emp_hbase(rowkey STRING,eid string, name STRING) STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler' WITH SERDEPROPERTIES ('hbase.columns.mapping' = ':key, cf:eid,cf:name') TBLPROPERTIES (‘hbase.table.name’ = 'employee');
+
+
+INSERT OVERWRITE TABLE emp_hbase SELECT DISTINCT eid,name FROM emp CLUSTER BY eid;
