@@ -1,0 +1,17 @@
+version: "2"
+services:
+  app:
+    container_name: mysql_app
+    build: src/app/.
+    links:
+      - db
+    ports:
+      - "5001:80"
+    depends_on:
+      - db
+  db:
+    container_name: mysql_db
+    build: src/db/.
+    ports:
+      - "3306:3306"
+
